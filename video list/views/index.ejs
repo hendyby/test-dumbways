@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yusup</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">DW Tube</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto"></ul>
+        <div class="form-inline my-2 my-lg-0">
+          <button
+            class="btn btn-outline-success my-2 my-sm-0 mr-1"
+            data-toggle="modal"
+            data-target="#modalvideo"
+          >
+            Add Video
+          </button>
+          <button
+            class="btn btn-outline-success my-2 my-sm-0 mr-1"
+            data-toggle="modal"
+            data-target="#modalcategory"
+          >
+            Add Category
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <% datavideo.forEach((item)=>{%>
+        <div class="col-4">
+          <div class="card">
+            <img src="<%= item.thumbnail%>" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title"><%= item.title%></h5>
+              <div class="row mt-1">
+                <h6 class="col text-right"><%= item.category%></h6>
+              </div>
+              <a href="/detail-video/<%= item.id%>" class="btn btn-primary mt-2"
+                >Details Video</a
+              >
+            </div>
+          </div>
+        </div>
+        <%})%>
+      </div>
+    </div>
+
+    <!-- Modal -->
+
+    <div
+      class="modal fade"
+      id="modalvideo"
+      tabindex="-1"
+      aria-labelledby="modalvideoLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalvideoLabel">Input video</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/addvideo">
+              <div class="form-group">
+                <label for="inputvideo">Title</label>
+                <input
+                  type="text"
+                  name="title_name"
+                  class="form-control"
+                  id="title_name"
+                />
+                <div class="form-group">
+                  <label for="inputvideo">Category</label>
+                  <select
+                    class="form-control"
+                    id="category_name"
+                    name="category_name"
+                  >
+                    <option value="">-Select Category-</option>
+                    <% datacategory.forEach((item)=>{%>
+                    <option value="<%= item.id%>"><%= item.name %></option>
+                    <%})%>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputvideo">Attache</label>
+                <input
+                  type="text"
+                  name="attache_name"
+                  class="form-control"
+                  id="attache_name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="inputvideo">Thumbnail</label>
+                <input
+                  type="text"
+                  name="thumbnail_name"
+                  class="form-control"
+                  id="thumbnail_name"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="modalcategory"
+      tabindex="-1"
+      aria-labelledby="modalcategoryLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalcategoryLabel">Input Category</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/addcategory">
+              <div class="form-group">
+                <label for="inputcategory">Category</label>
+                <input
+                  type="text"
+                  name="category_name"
+                  class="form-control"
+                  id="category_name"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"
+  ></script>
+</html>
